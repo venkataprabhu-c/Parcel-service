@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'java'}
+    agent { label 'java' }
 
       stages {
         stage('Checkout Code') {
@@ -11,13 +11,6 @@ pipeline {
         stage('Build with Maven') {
             steps {
                 sh 'mvn clean package'
-            }
-        }
-
-        stage('Archive Artifact') {
-            steps {
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                echo "Artifact archived successfully."
             }
         }
 
@@ -58,6 +51,12 @@ pipeline {
                     echo "Stopping app..."
                     sh 'kill $(cat app.pid) || true'
                 }
+            }
+        }
+          stage('Archive Artifact') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                echo "Artifact archived successfully."
             }
         }
     }
