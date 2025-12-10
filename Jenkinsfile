@@ -1,12 +1,7 @@
 pipeline {
-    agent any
+    agent {label 'java'}
 
-    tools {
-        jdk 'java17'
-        maven 'maven3'
-    }
-
-    stages {
+      stages {
         stage('Checkout Code') {
             steps {
                 checkout scm
@@ -15,7 +10,7 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package'
             }
         }
 
